@@ -1,0 +1,12 @@
+{
+  "user_username_already_exist" : "{} This username has already taken.",
+  "user_email_already_exist": "{} This email has already taken",
+  "user_registration_successful": "User registration successful please check your inbox and activate your account",
+  "user_internal_server_error": "Internal server error while registration. Please try again later",
+  "user_email_sending_failed": "Internal server error while sending email.",
+
+  "confirmation_token_not_found": "Confirmation token is not found.",
+  "confirmation_token_expired": "Confirmation token has expired.",
+  "confirmation_already_confirmed": "This account already confirmed.",
+  "confirmation_successful": "Your account activated successfully."
+}

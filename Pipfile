@@ -14,6 +14,8 @@ flask-sqlalchemy = "*"
 flask-marshmallow = "==0.11.0"
 marshmallow-sqlalchemy = "==0.22.3"
 requests = "*"
+env = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
