@@ -2,7 +2,7 @@ import traceback
 
 from flask import request
 from flask_restful import Resource
-from flask_jwt_extended import create_refresh_token, create_access_token, jwt_required
+from flask_jwt_extended import create_refresh_token, create_access_token, jwt_required, get_jwt_identity
 from marshmallow import ValidationError
 from werkzeug.security import safe_str_cmp, generate_password_hash, check_password_hash
 
@@ -83,6 +83,17 @@ class UserLogin(Resource):
             if confirmation and confirmation.is_confirmed:
                 access_token = create_access_token(identity=user.id, fresh=True)
                 refresh_token = create_refresh_token(identity=user.id)
-                return {"access_token": access_token, "refresh_token":refresh_token}
-            return {"Message": gettext("user_not_confirmed_error")}
-        return {"Message": gettext("user_invalid_credential_error")}
+                return {"access_token": access_token, "refresh_token": refresh_token}, 201
+            return {"Message": gettext("user_not_confirmed_error")}, 401
+        return {"Message": gettext("user_invalid_credential_error")}, 401
+
+
+class TokenRefresh(Resource):
+
+    @classmethod
+    @jwt_required
+    def post(cls):
+        user_id = get_jwt_identity()
+        refresh_token = create_access_token(identity=user_id, fresh=False)
+        return {"refresh_token": refresh_token}, 201
+    
