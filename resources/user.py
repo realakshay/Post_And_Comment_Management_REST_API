@@ -53,3 +53,11 @@ class User(Resource):
         if not user:
             return {"Message": gettext("user_id_not_found_error").format(user_id)}, 401
         return user_schema.dump(user), 201
+
+    @classmethod
+    def delete(cls, user_id: int):
+        user = UserModel.find_by_id(user_id)
+        if not user:
+            return {"Message": gettext("user_id_not_found_error").format(user_id)}, 401
+        user.delete_from_db()
+        return {"Message": gettext("user_deleted_successful").format(user_id)}, 201
