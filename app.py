@@ -1,11 +1,12 @@
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from db import db
 from ma import ma
 from resources.user import UserRegister, User
 from resources.confirmation import Confirmation
+from blacklist import BLACKLIST
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('APP_SECRET_KEY')
@@ -16,10 +17,19 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
 
-
 @app.before_first_request
 def create_tables():
     db.create_all()
+
+
+@jwt.token_in_blacklist_loader
+def token_in_blacklist(decrypted_token):
+    return decrypted_token['jti'] in BLACKLIST
+
+
+@jwt.revoked_token_loader
+def revoked_token_callback():
+    return jsonify({'description': "Token has been revoked."})
 
 
 api.add_resource(UserRegister, '/register')

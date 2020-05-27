@@ -8,6 +8,7 @@
   "user_deleted_successful": "User with id {} has been successfully deleted",
   "user_not_confirmed_error": "This user is not confirmed yet. Please check your email and confirm it.",
   "user_invalid_credential_error": "Invalid credential provided, Please check your username and password",
+  "user_logout_successful": "You have successfully logged out",
 
   "confirmation_token_not_found": "Confirmation token is not found.",
   "confirmation_token_expired": "Confirmation token has expired.",
