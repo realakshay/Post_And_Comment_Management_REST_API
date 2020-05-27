@@ -10,5 +10,8 @@
   "confirmation_token_not_found": "Confirmation token is not found.",
   "confirmation_token_expired": "Confirmation token has expired.",
   "confirmation_already_confirmed": "This account already confirmed.",
-  "confirmation_successful": "Your account activated successfully."
+  "confirmation_successful": "Your account activated successfully.",
+  "confirmation_user_not_found": "User with id {} not found",
+  "confirmation_mail_resend_successful": "Confirmation resend successful. Please check your email.",
+  "confirmation_mail_resend_failed": "Confirmation resend failed."
 }
