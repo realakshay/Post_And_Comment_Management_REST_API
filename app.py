@@ -4,7 +4,7 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from db import db
 from ma import ma
-from resources.user import UserRegister
+from resources.user import UserRegister, User
 from resources.confirmation import Confirmation
 
 app = Flask(__name__)
@@ -24,6 +24,7 @@ def create_tables():
 
 api.add_resource(UserRegister, '/register')
 api.add_resource(Confirmation, '/confirm/<string:confirmation_id>')
+api.add_resource(User, '/user/<int:user_id>')
 
 if __name__ == '__main__':
     db.init_app(app)

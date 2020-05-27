@@ -4,6 +4,7 @@
   "user_registration_successful": "User registration successful please check your inbox and activate your account",
   "user_internal_server_error": "Internal server error while registration. Please try again later",
   "user_email_sending_failed": "Internal server error while sending email.",
+  "user_id_not_found_error": "User with id {} not found",
 
   "confirmation_token_not_found": "Confirmation token is not found.",
   "confirmation_token_expired": "Confirmation token has expired.",

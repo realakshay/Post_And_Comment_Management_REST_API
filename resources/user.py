@@ -43,3 +43,13 @@ class UserRegister(Resource):
         except:
             traceback.print_exc()
             return {"Message": gettext("user_internal_server_error")}, 501
+
+
+class User(Resource):
+
+    @classmethod
+    def get(cls, user_id: int):
+        user = UserModel.find_by_id(user_id)
+        if not user:
+            return {"Message": gettext("user_id_not_found_error").format(user_id)}, 401
+        return user_schema.dump(user), 201
