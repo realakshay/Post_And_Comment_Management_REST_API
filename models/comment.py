@@ -11,8 +11,9 @@ class CommentModel(db.Model):
     comment = db.Column(db.String(80), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
     comment_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
-
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     posts = db.relationship("PostsModel")
+    user = db.relationship("UserModel")
 
     @classmethod
     def find_by_post_id(cls, post_id: int) -> List:

@@ -1,5 +1,5 @@
 from flask import request
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful import Resource
 from marshmallow import ValidationError
 
@@ -17,11 +17,13 @@ class Comments(Resource):
     def post(cls, post_id: int):
         comment_json = request.get_json()
         try:
-            comment_data = comment_schema.load(comment_json, partial=("post_id",))
+            comment_data = comment_schema.load(comment_json, partial=("post_id","user_id",))
         except ValidationError as err:
             return {"Message": err.messages}, 401
 
+        user_id = get_jwt_identity()
         comment_data.post_id = post_id
+        comment_data.user_id = user_id
         comment_data.insert_comment()
         return comment_schema.dump(comment_data), 201
 
