@@ -16,5 +16,8 @@
   "confirmation_successful": "Your account activated successfully.",
   "confirmation_user_not_found": "User with id {} not found",
   "confirmation_mail_resend_successful": "Confirmation resend successful. Please check your email.",
-  "confirmation_mail_resend_failed": "Confirmation resend failed."
+  "confirmation_mail_resend_failed": "Confirmation resend failed.",
+
+  "post_not_found": "Post with title {} is not found"
+
 }

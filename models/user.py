@@ -8,6 +8,7 @@ from requests import Response
 
 from db import db
 from models.confirmation import ConfirmationModel
+from models.posts import PostsModel
 
 MY_DOMAIN_NAME = os.environ.get('MY_DOMAIN_NAME')
 MY_API_KEY = os.environ.get('MY_API_KEY')
@@ -25,6 +26,7 @@ class UserModel(db.Model):
     reg_date = db.Column(db.DateTime, default=datetime.datetime.utcnow())
 
     confirmation = db.relationship("ConfirmationModel", lazy="dynamic", cascade="all, delete-orphan")
+    #posts = db.relationship("PostsModel", lazy="dynamic", cascade="all, delete-orphan")
 
     def insert_in_db(self):
         db.session.add(self)

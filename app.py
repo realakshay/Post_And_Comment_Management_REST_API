@@ -4,8 +4,9 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from db import db
 from ma import ma
-from resources.user import UserRegister, User
-from resources.confirmation import Confirmation
+from resources.user import UserRegister, User, UserLogin, UserLogout, TokenRefresh
+from resources.confirmation import Confirmation, ConfirmationByUser
+from resources.posts import Posts, MakePosts
 from blacklist import BLACKLIST
 
 app = Flask(__name__)
@@ -34,7 +35,12 @@ def revoked_token_callback():
 
 api.add_resource(UserRegister, '/register')
 api.add_resource(Confirmation, '/confirm/<string:confirmation_id>')
+api.add_resource(ConfirmationByUser, '/confirm_by/user/<int:user_id>')
 api.add_resource(User, '/user/<int:user_id>')
+api.add_resource(UserLogin, '/login')
+api.add_resource(UserLogout, '/logout')
+api.add_resource(Posts, '/posts/title/<string:title>')
+api.add_resource(MakePosts, '/create_post')
 
 if __name__ == '__main__':
     db.init_app(app)
