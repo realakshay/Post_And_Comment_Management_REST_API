@@ -18,6 +18,12 @@
   "confirmation_mail_resend_successful": "Confirmation resend successful. Please check your email.",
   "confirmation_mail_resend_failed": "Confirmation resend failed.",
 
-  "post_not_found": "Post with title {} is not found"
+  "post_not_found": "Post with title {} is not found",
+  "post_id_not_found": "Post with id {} is not found",
+  "post_desc_not_found": "Post with query {} is not found",
+  "post_not_created_yet": "You have not created any post yet",
+  "post_created_successful": "Your post has created successfully.",
+  "post_deleted_successful": "Your post has deleted successfully.",
+  "post_cannot_deleted": "You can only delete your own posts."
 
 }

@@ -16,6 +16,10 @@ class PostsModel(db.Model):
     user = db.relationship("UserModel")
 
     @classmethod
+    def find_by_id(cls, post_id: int) -> "PostsModel":
+        return cls.query.filter_by(id=post_id).first()
+
+    @classmethod
     def find_by_tile(cls, title: str) -> List:
         return cls.query.filter_by(title=title).all()
 

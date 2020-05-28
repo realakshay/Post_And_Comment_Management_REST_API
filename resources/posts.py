@@ -34,7 +34,7 @@ class MakePosts(Resource):
         user_id = get_jwt_identity()
         post_data.user_id = user_id
         post_data.insert_post()
-        return post_schema.dump(post_data)
+        return {"Message": gettext("post_created_successful")}
 
 
 class MyPosts(Resource):
@@ -45,7 +45,7 @@ class MyPosts(Resource):
         user_id = get_jwt_identity()
         posts = PostsModel.find_by_user_id(user_id)
         if not posts:
-            return {"Message": "You have not made any post yet."}
+            return {"Message": gettext("post_not_created_yet")}, 401
         return posts_schemas.dump(posts), 201
 
 
@@ -55,5 +55,20 @@ class PostDescription(Resource):
     def get(cls, desc: str):
         posts = PostsModel.find_by_desc(desc)
         if not posts:
-            return {"Message": "Not found post"}
+            return {"Message": gettext("post_desc_not_found").format(desc)}, 401
         return posts_schemas.dump(posts), 201
+
+
+class ChangeOrDeletePost(Resource):
+
+    @classmethod
+    @jwt_required
+    def delete(cls, post_id: int):
+        user_id = get_jwt_identity()
+        posts = PostsModel.find_by_id(post_id)
+        if posts:
+            if posts.user_id == user_id:
+                posts.delete_post()
+                return {"Message": gettext("post_deleted_successful")}, 201
+            return {"Message": gettext("post_cannot_deleted")}, 401
+        return {"Message": gettext("post_id_not_found").format(post_id)}
