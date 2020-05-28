@@ -71,4 +71,23 @@ class ChangeOrDeletePost(Resource):
                 posts.delete_post()
                 return {"Message": gettext("post_deleted_successful")}, 201
             return {"Message": gettext("post_cannot_deleted")}, 401
+        return {"Message": gettext("post_id_not_found").format(post_id)}, 401
+
+    @classmethod
+    @jwt_required
+    def put(cls, post_id: int):
+        user_id = get_jwt_identity()
+        post_json = request.get_json()
+        try:
+            post_data = post_schema.load(post_json, partial=("user_id","title",))
+        except ValidationError as err:
+            return {"Message": err.messages}, 401
+
+        posts = PostsModel.find_by_id(post_id)
+        if posts:
+            if posts.user_id == user_id:
+                posts.description = post_data.description
+                posts.insert_post()
+                return {"Message": "post updated successfully"}, 201
+            return {"Message": gettext("post_cannot_deleted")}, 401
         return {"Message": gettext("post_id_not_found").format(post_id)}
