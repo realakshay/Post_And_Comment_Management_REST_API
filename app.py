@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from db import db
+from libs.string import gettext
 from ma import ma
 from resources.user import UserRegister, User, UserLogin, UserLogout, TokenRefresh, AllUsers
 from resources.confirmation import Confirmation, ConfirmationByUser
@@ -18,11 +19,11 @@ jwt = JWTManager(app)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
-
+'''
 @app.before_first_request
 def create_tables():
     db.create_all()
-
+'''
 
 @jwt.token_in_blacklist_loader
 def token_in_blacklist(decrypted_token):
@@ -31,7 +32,7 @@ def token_in_blacklist(decrypted_token):
 
 @jwt.revoked_token_loader
 def revoked_token_callback():
-    return jsonify({'description': "Token has been revoked."})
+    return jsonify({'description': gettext("app_token_revoked")})
 
 
 api.add_resource(UserRegister, '/register')

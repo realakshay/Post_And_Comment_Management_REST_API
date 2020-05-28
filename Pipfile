@@ -16,6 +16,7 @@ marshmallow-sqlalchemy = "==0.22.3"
 requests = "*"
 env = "*"
 python-dotenv = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"

@@ -32,5 +32,7 @@
   "comment_not_authorized_to_change_others_comment": "you cannot change others comments, you have no rights.",
   "comment_not_exist": "comment not exist to take this action",
   "comment_delete_successful": "comment is deleted successfully.",
-  "comments_deleted_successful": "all comments deleted successfully"
+  "comments_deleted_successful": "all comments deleted successfully",
+
+  "app_token_revoked": "Token has been revoked."
 }
