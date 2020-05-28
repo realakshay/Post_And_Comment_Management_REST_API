@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful import Resource
 from marshmallow import ValidationError
 
+from libs.string import gettext
 from models.comment import CommentModel
 from schemas.comment import CommentSchema
 
@@ -17,8 +18,8 @@ class Comments(Resource):
     def get(cls, post_id: int):
         comments_data = CommentModel.find_by_post_id(post_id)
         if comments_data:
-            return comments_schema.dump(comments_data)
-        return {"Message": "Not found"}
+            return comments_schema.dump(comments_data), 201
+        return {"Message": gettext("comment_post_not_found").format(post_id)}, 401
 
     @classmethod
     @jwt_required
@@ -53,9 +54,9 @@ class EditComment(Resource):
             if comment.user_id == user_id:
                 comment.comment = comment_data.comment
                 comment.insert_comment()
-                return {"Message": "Comment Updeted.."}
-            return {"Message": "You can't delete others comment"}
-        return {"Message": "Comment not exist here."}
+                return {"Message": gettext("comment_update_successful")}, 201
+            return {"Message": gettext("comment_not_authorized_to_change_others_comment")}, 401
+        return {"Message": gettext("comment_not_exist")}, 401
 
 
     @classmethod
@@ -66,6 +67,15 @@ class EditComment(Resource):
         if comment:
             if comment.user_id == user_id:
                 comment.delete_comment()
-                return {"Message": "Comment Deleted.."}
-            return {"Message": "You can't delete others comment"}
-        return {"Message": "Comment not exist here."}
+                return {"Message": gettext("comment_delete_successful")}, 201
+            return {"Message": gettext("comment_not_authorized_to_change_others_comment")}, 401
+        return {"Message": gettext("comment_not_exist")}, 401
+
+
+class TruncateCommentTable(Resource):
+
+    @classmethod
+    def get(cls):
+        n = CommentModel.delete_all()
+        print(n)
+        return {"Message": gettext("comments_deleted_successful")}, 201

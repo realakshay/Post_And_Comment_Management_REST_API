@@ -24,6 +24,13 @@
   "post_not_created_yet": "You have not created any post yet",
   "post_created_successful": "Your post has created successfully.",
   "post_deleted_successful": "Your post has deleted successfully.",
-  "post_cannot_deleted": "You can only delete your own posts."
+  "post_updated_successful": "your post has updated successfully",
+  "post_cannot_deleted": "You can only delete your own posts.",
 
+  "comment_post_not_found": "comment not found for post id {}",
+  "comment_update_successful": "comment is updated successfully.",
+  "comment_not_authorized_to_change_others_comment": "you cannot change others comments, you have no rights.",
+  "comment_not_exist": "comment not exist to take this action",
+  "comment_delete_successful": "comment is deleted successfully.",
+  "comments_deleted_successful": "all comments deleted successfully"
 }

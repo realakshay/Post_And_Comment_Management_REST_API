@@ -34,3 +34,9 @@ class CommentModel(db.Model):
     def delete_comment(self):
         db.session.delete(self)
         db.session.commit()
+
+    @classmethod
+    def delete_all(cls):
+        n = cls.query.delete()
+        db.session.commit()
+        return n

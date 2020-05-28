@@ -88,7 +88,7 @@ class ChangeOrDeletePost(Resource):
             if posts.user_id == user_id:
                 posts.description = post_data.description
                 posts.insert_post()
-                return {"Message": "post updated successfully"}, 201
+                return {"Message": gettext("post_updated_successful")}, 201
             return {"Message": gettext("post_cannot_deleted")}, 401
         return {"Message": gettext("post_id_not_found").format(post_id)}
 
