@@ -7,7 +7,7 @@ from ma import ma
 from resources.user import UserRegister, User, UserLogin, UserLogout, TokenRefresh, AllUsers
 from resources.confirmation import Confirmation, ConfirmationByUser
 from resources.posts import PostsTitle, MakePosts, MyPosts, PostDescription, ChangeOrDeletePost, AllPost
-from resources.comment import Comments
+from resources.comment import Comments, EditComment
 from blacklist import BLACKLIST
 
 app = Flask(__name__)
@@ -35,20 +35,23 @@ def revoked_token_callback():
 
 
 api.add_resource(UserRegister, '/register')
-api.add_resource(Confirmation, '/confirm/<string:confirmation_id>')
-api.add_resource(ConfirmationByUser, '/confirm_by/user/<int:user_id>')
 api.add_resource(User, '/user/<int:user_id>')
 api.add_resource(AllUsers, '/users')
 api.add_resource(UserLogin, '/login')
 api.add_resource(UserLogout, '/logout')
+
+api.add_resource(Confirmation, '/confirm/<string:confirmation_id>')
+api.add_resource(ConfirmationByUser, '/confirm_by/user/<int:user_id>')
+
 api.add_resource(PostsTitle, '/posts/title/<string:title>')
 api.add_resource(MakePosts, '/create_post')
 api.add_resource(MyPosts, '/myposts')
 api.add_resource(PostDescription, '/post_desc/<string:desc>')
 api.add_resource(ChangeOrDeletePost, '/edit/<int:post_id>')
 api.add_resource(AllPost, '/allposts')
-api.add_resource(Comments, '/comment/<int:post_id>')
 
+api.add_resource(Comments, '/comment/<int:post_id>')
+api.add_resource(EditComment, '/edit/comment/<int:comment_id>')
 
 if __name__ == '__main__':
     db.init_app(app)

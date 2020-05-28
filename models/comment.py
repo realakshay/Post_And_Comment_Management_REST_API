@@ -16,8 +16,16 @@ class CommentModel(db.Model):
     user = db.relationship("UserModel")
 
     @classmethod
+    def find_by_comment_id(cls, comment_id: int) -> "CommentModel":
+        return cls.query.filter_by(id=comment_id).first()
+
+    @classmethod
     def find_by_post_id(cls, post_id: int) -> List:
         return cls.query.filter_by(post_id=post_id).all()
+
+    @classmethod
+    def find_by_post_and_user_id(cls, post_id: int, user_id: int) -> List:
+        return cls.query.filter_by(post_id=post_id, user_id=user_id).all()
 
     def insert_comment(self):
         db.session.add(self)
