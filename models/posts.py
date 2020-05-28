@@ -2,6 +2,7 @@ import datetime
 from typing import List
 
 from db import db
+from models.comment import CommentModel
 
 
 class PostsModel(db.Model):
@@ -13,7 +14,9 @@ class PostsModel(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
+    comments = db.relationship("CommentModel", lazy="dynamic", cascade="all, delete-orphan")
     user = db.relationship("UserModel")
+
 
     @classmethod
     def find_all(cls) -> List:
