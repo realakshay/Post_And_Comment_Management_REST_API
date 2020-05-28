@@ -10,7 +10,7 @@ class UserSchema(ma.ModelSchema):
         load_only = ("password",)
         include_fk = True
 
-    # @pre_dump
-    # def _pre_dump(self, user: UserModel):
-    #     user.confirmation = [user.most_recent_confirmation]
-    #     return user
+    @pre_dump
+    def _pre_dump(self, user: UserModel, **kwargs):
+        user.confirmation = [user.most_recent_confirmation]
+        return user
