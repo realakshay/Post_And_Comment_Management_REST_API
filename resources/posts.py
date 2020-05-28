@@ -91,3 +91,11 @@ class ChangeOrDeletePost(Resource):
                 return {"Message": "post updated successfully"}, 201
             return {"Message": gettext("post_cannot_deleted")}, 401
         return {"Message": gettext("post_id_not_found").format(post_id)}
+
+
+class AllPost(Resource):
+
+    @classmethod
+    @jwt_required
+    def get(cls):
+        return posts_schemas.dump(PostsModel.find_all())

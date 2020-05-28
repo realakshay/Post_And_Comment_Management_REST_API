@@ -6,7 +6,7 @@ from db import db
 from ma import ma
 from resources.user import UserRegister, User, UserLogin, UserLogout, TokenRefresh
 from resources.confirmation import Confirmation, ConfirmationByUser
-from resources.posts import PostsTitle, MakePosts, MyPosts, PostDescription, ChangeOrDeletePost
+from resources.posts import PostsTitle, MakePosts, MyPosts, PostDescription, ChangeOrDeletePost, AllPost
 from blacklist import BLACKLIST
 
 app = Flask(__name__)
@@ -44,6 +44,8 @@ api.add_resource(MakePosts, '/create_post')
 api.add_resource(MyPosts, '/myposts')
 api.add_resource(PostDescription, '/post_desc/<string:desc>')
 api.add_resource(ChangeOrDeletePost, '/edit/<int:post_id>')
+api.add_resource(AllPost, '/allposts')
+
 
 if __name__ == '__main__':
     db.init_app(app)
