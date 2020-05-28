@@ -23,6 +23,10 @@ class PostsModel(db.Model):
     def find_by_user_id(cls, user_id: int) -> List:
         return cls.query.filter_by(user_id=user_id).all()
 
+    @classmethod
+    def find_by_desc(cls, desc: str) -> List:
+        return cls.query.filter(cls.description.like(f"%{desc}%")).all()
+
     def insert_post(self) -> None:
         db.session.add(self)
         db.session.commit()

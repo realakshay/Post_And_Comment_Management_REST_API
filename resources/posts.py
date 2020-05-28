@@ -11,7 +11,7 @@ post_schema = PostsSchema()
 posts_schemas = PostsSchema(many=True)
 
 
-class Posts(Resource):
+class PostsTitle(Resource):
 
     @classmethod
     def get(cls, title: str):
@@ -46,4 +46,14 @@ class MyPosts(Resource):
         posts = PostsModel.find_by_user_id(user_id)
         if not posts:
             return {"Message": "You have not made any post yet."}
+        return posts_schemas.dump(posts), 201
+
+
+class PostDescription(Resource):
+
+    @classmethod
+    def get(cls, desc: str):
+        posts = PostsModel.find_by_desc(desc)
+        if not posts:
+            return {"Message": "Not found post"}
         return posts_schemas.dump(posts), 201
