@@ -35,3 +35,15 @@ class MakePosts(Resource):
         post_data.user_id = user_id
         post_data.insert_post()
         return post_schema.dump(post_data)
+
+
+class MyPosts(Resource):
+
+    @classmethod
+    @jwt_required
+    def get(cls):
+        user_id = get_jwt_identity()
+        posts = PostsModel.find_by_user_id(user_id)
+        if not posts:
+            return {"Message": "You have not made any post yet."}
+        return posts_schemas.dump(posts), 201
