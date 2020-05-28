@@ -14,6 +14,7 @@ from schemas.user import UserSchema
 from libs.string import gettext
 
 user_schema = UserSchema()
+users_schema = UserSchema(many=True)
 
 
 class UserRegister(Resource):
@@ -107,3 +108,11 @@ class UserLogout(Resource):
         jti = get_raw_jwt()['jti']
         BLACKLIST.add(jti)
         return {"Message": gettext("user_logout_successful")}, 201
+
+
+class AllUsers(Resource):
+
+    @classmethod
+    @jwt_required
+    def get(cls):
+        return users_schema.dump(UserModel.find_all())

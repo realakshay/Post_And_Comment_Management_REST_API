@@ -4,7 +4,7 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from db import db
 from ma import ma
-from resources.user import UserRegister, User, UserLogin, UserLogout, TokenRefresh
+from resources.user import UserRegister, User, UserLogin, UserLogout, TokenRefresh, AllUsers
 from resources.confirmation import Confirmation, ConfirmationByUser
 from resources.posts import PostsTitle, MakePosts, MyPosts, PostDescription, ChangeOrDeletePost, AllPost
 from resources.comment import Comments
@@ -38,6 +38,7 @@ api.add_resource(UserRegister, '/register')
 api.add_resource(Confirmation, '/confirm/<string:confirmation_id>')
 api.add_resource(ConfirmationByUser, '/confirm_by/user/<int:user_id>')
 api.add_resource(User, '/user/<int:user_id>')
+api.add_resource(AllUsers, '/users')
 api.add_resource(UserLogin, '/login')
 api.add_resource(UserLogout, '/logout')
 api.add_resource(PostsTitle, '/posts/title/<string:title>')
