@@ -18,7 +18,7 @@ marshmallow==3.6.0
 marshmallow-sqlalchemy==0.22.3
 post==2019.4.13
 public==2019.4.13
-PyJWT==1.7.1
+PyJWT==2.4.0
 python-dotenv==0.13.0
 pytz==2020.1
 query-string==2019.4.13
